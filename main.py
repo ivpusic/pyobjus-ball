@@ -14,6 +14,7 @@ class Ball(Widget):
     def move(self):
         self.pos = Vector(*self.velocity) + self.pos
 
+
 class PyobjusGame(Widget):
 
     ball = ObjectProperty(None)
