@@ -7,7 +7,7 @@ from pyobjus import autoclass
 
 
 class Ball(Widget):
-    
+
     velocity_x = NumericProperty(0)
     velocity_y = NumericProperty(0)
     velocity = ReferenceListProperty(velocity_x, velocity_y)
@@ -19,19 +19,17 @@ class Ball(Widget):
 class PyobjusGame(Widget):
 
     ball = ObjectProperty(None)
-    Bridge = ObjectProperty(None)
     screen = ObjectProperty(autoclass('UIScreen').mainScreen())
-    bridge = ObjectProperty(None)
+    bridge = ObjectProperty(autoclass('bridge').alloc().init())
     sensitivity = ObjectProperty(50)
 
     def __init__(self, *args, **kwargs):
         super(PyobjusGame, self).__init__()
-        self.Bridge = autoclass('bridge')
-        UIScreen = autoclass('UIScreen')
-        self.bridge = self.Bridge.alloc().init()
         self.bridge.startAccelerometer()
-        self.width = self.screen.bounds.size.width
-        self.height = self.screen.bounds.size.height
+
+    def __dealloc__(self, *args, **kwargs):
+        self.bridge.stopAccelerometer()
+        super(PyobjusGame, self).__dealloc__()
 
     def update(self, dt):
         self.ball.move()
@@ -46,7 +44,7 @@ class PyobjusGame(Widget):
 
 
 class PyobjusBallApp(App):
-    
+
     def build(self):
         game = PyobjusGame()
         Clock.schedule_interval(game.update, 1.0/60.0)
