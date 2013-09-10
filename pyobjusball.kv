@@ -1,0 +1,13 @@
+<Ball>:
+    size: 50, 50 
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: self.size          
+
+<PyobjusGame>:
+    ball: pyobjus_ball
+
+    Ball:
+        id: pyobjus_ball
+        center: self.parent.center
