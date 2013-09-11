@@ -45,12 +45,10 @@ class PyobjusGame(Widget):
         self.ball.velocity_y = self.bridge.ac_y * self.sensitivity
 
         if (self.ball.y < 0) or (self.ball.top >= self.height):
-            self.ball.velocity_y *= -1
             self.reset_ball_pos()
             self.ball.h = random()
 
         if (self.ball.x < 0) or (self.ball.right >= self.width):
-            self.ball.velocity_x *= -1
             self.reset_ball_pos()
             self.ball.h = random()
 
